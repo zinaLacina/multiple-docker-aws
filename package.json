@@ -1,0 +1,19 @@
+{
+  "name": "tasks-docker",
+  "version": "1.0.0",
+  "description": "Multiple docker tasks management system using redis, postgresql, node js, react js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zinaLacina/multiple-docker-tasks-management.git"
+  },
+  "author": "zina lacina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zinaLacina/multiple-docker-tasks-management/issues"
+  },
+  "homepage": "https://github.com/zinaLacina/multiple-docker-tasks-management#readme"
+}
