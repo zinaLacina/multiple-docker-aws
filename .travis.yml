@@ -3,22 +3,33 @@ services:
   - docker
 
 before_install:
-  - docker build -t zinalacina/multidocker -f ./client/Dockerfile.dev .
+  - docker build -t zinalacina/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run zinalacina/multidocker npm test -- --coverage
+  - docker run zinalacina/react-test npm test -- --coverage
 
 after_success:
   - docker build -t zinalacina/multi-client ./client
   - docker build -t zinalacina/multi-nginx ./nginx
   - docker build -t zinalacina/multi-server ./server
   - docker build -t zinalacina/multi-worker ./worker
-
-  #Login to docker cli
+  # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # Take those image and push to docker hub
+  # Take those images and push them to docker hub
   - docker push zinalacina/multi-client
   - docker push zinalacina/multi-nginx
   - docker push zinalacina/multi-server
   - docker push zinalacina/multi-worker
 
+# deploy:
+#   provider: elasticbeanstalk
+#   region: us-west-1
+#   app: multi-docker
+#   env: MultiDocker-env
+#   bucket_name: elasticbeanstalk-us-west-1-306476627547
+#   bucket_path: docker-multi
+#   on:
+#     branch: master
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_access_key:
+#     secure: $AWS_SECRET_KEY
