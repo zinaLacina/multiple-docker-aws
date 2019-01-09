@@ -16,7 +16,7 @@ class App extends Component {
             <Link to="/">Home</Link>
             <Link to="/otherpage">Other Page</Link>
           </header>
-          <div style="padding-top: 20px;">
+          <div className="Content-body">
             <Route exact path="/" component={Fib} />
             <Route path="/otherpage" component={OtherPage} />
           </div>
