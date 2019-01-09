@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t zinalacina/multidocker -f ./client/Dockerfile.dev .
+
+script:
+  - docker run zinalacina/multidocker npm test -- --coverage
+
+after_success:
+  - docker build -t zinalacina/multi-client ./client
+  - docker build -t zinalacina/multi-nginx ./nginx
+  - docker build -t zinalacina/multi-server ./server
+  - docker build -t zinalacina/multi-worker ./worker
+
+  #Login to docker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those image and push to docker hub
+  - docker push zinalacina/multi-client
+  - docker push zinalacina/multi-nginx
+  - docker push zinalacina/multi-server
+  - docker push zinalacina/multi-worker
+
